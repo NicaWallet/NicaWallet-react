@@ -6,8 +6,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { usePathname } from "@/lib/translations";
 import { useTranslations, useLocale } from "next-intl";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { TiWorldOutline } from "react-icons/ti";
 
 /**
@@ -23,13 +25,30 @@ import { TiWorldOutline } from "react-icons/ti";
 export default function LanguageSwitcher() {
   const t = useTranslations(); // Obtenemos la función t para traducir el texto
   const router = useRouter(); // creamos una variable router para usar el hook useRouter y poder navegar entre rutas
-  const pathname = usePathname(); // Obtenemos la ruta actual del navegador con el hook usePathname
+  const pathname = usePathname(); // Obtenemos la ruta actual con el hook usePathname
   const locale = useLocale(); // Obtenemos el idioma actual con el hook useLocale
+  const startTransition = useTransition()[1]; // Obtenemos la función startTransition para realizar transiciones de forma suave y seleccionamos el segundo elemento del array que retorna useTransition 
 
-  const changeLanguage = (lng: string) => {
-    const newPathname = pathname.replace(`/${locale}`, `/${lng}`); // Reemplaza el idioma actual por el nuevo idioma
-    router.push(newPathname); // Navega a la nueva ruta
-  };
+  function Action({
+    index,
+    text,
+    locale,
+  }: {
+    index: number;
+    text: string;
+    locale: string;
+  }) {
+    return (
+      <DropdownMenuItem
+        key={`menu-item-${index}`}
+        onClick={() =>
+          startTransition(() => router.replace(`/${locale}${pathname}`))
+        }
+      >
+        {text}
+      </DropdownMenuItem>
+    );
+  }
 
   // Lista de idiomas disponibles
   const languages = [
@@ -48,14 +67,13 @@ export default function LanguageSwitcher() {
       <DropdownMenuContent>
         {languages
           .filter((language) => language.code !== locale) // Realiza un filtro para mostrar solo los idiomas diferentes al idioma actual seleccionado
-          .map((language) => (
-            <DropdownMenuItem
-              key={language.code} // Asigna el código del idioma como key del elemento
-              onSelect={() => changeLanguage(language.code)} // Llama a la funcion changeLanguage y le pasa el valor del idioma seleccionado
-            >
-              {/* Muestra los idiomas disblobles despues del filtro, se tienen que mostrar dentro de llaves ya que es un texto variable  */}
-              {language.label}
-            </DropdownMenuItem>
+          .map((language, index) => (
+            <Action
+              key={index}
+              index={index}
+              text={language.label}
+              locale={language.code}
+            />
           ))}
       </DropdownMenuContent>
     </DropdownMenu>
