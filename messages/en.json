@@ -4,5 +4,16 @@
   "LANDING_CTA": "Get Started",
   "SELECT_AN_LANGUAGE": "Select a language",
   "ENGLISH": "English",
-  "SPANISH": "Spanish"
+  "SPANISH": "Spanish",
+  "HOME": "Home",
+  "ABOUT": "About",
+  "CONTACT": "Contact",
+  "LOGIN": "Login",
+  "GO_TO_WALLET_BUTTON": "Go to Wallet",
+  "GO_TO_PERSONAL_FINANCE_BUTTON": "Go to Personal Finance",
+  "BACK_TO_HOME": "Back to Home",
+  "EMAIL_LABEL": "Email",
+  "EMAIL_PLACEHOLDER": "Enter your email",
+  "PASSWORD_LABEL": "Password",
+  "PASSWORD_PLACEHOLDER": "Enter your password"
 }

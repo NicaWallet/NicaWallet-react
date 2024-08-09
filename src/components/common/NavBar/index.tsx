@@ -12,6 +12,7 @@ import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useTranslations } from "next-intl";
 import React from "react";
 import { Button } from "../../ui/button";
+import ButtonNavigator from "../ButtonNavigator";
 
 /**
  * Represents a navigation bar component.
@@ -19,7 +20,6 @@ import { Button } from "../../ui/button";
  * a language switcher, and a login button.
  */
 
-// TODO: Agregar todas las traducciones en sus respectivos archivos
 export default function NavBar() {
   const t = useTranslations(); // Aquí obtenemos el hook de traducción
 
@@ -50,7 +50,7 @@ export default function NavBar() {
 
           {/* Contact */}
           <NavigationMenuItem>
-            <NavigationMenuLink href="/contact">
+            <NavigationMenuLink href="/es/login">
               <Button size={"sm"} type="button" variant={"link"}>
                 {t("CONTACT")}
               </Button>
@@ -65,10 +65,7 @@ export default function NavBar() {
 
           {/* Login Button */}
           <NavigationMenuItem>
-            {/* Llamamos el componente Button y le pasamos los parametros necesarios para modificar su tamaño, tipo y variante */}
-            <Button size={"sm"} type="button" variant={"default"}>
-              {t("LOGIN")}
-            </Button>
+            <ButtonNavigator route="/es/login" translationKey="LOGIN" />
           </NavigationMenuItem>
 
           {/* Register Button
